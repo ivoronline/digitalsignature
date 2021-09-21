@@ -59,18 +59,34 @@ public class UtilSignature {
   //====================================================================================
   // SAVE SIGNATURE AS TEXT FILE
   //====================================================================================
-  // UtilSignature.saveSignatureAsTextFile(privateKey, "PrivateKey.txt");
+  // UtilSignature.saveSignatureAsTextFile("Signature.txt", signaturBytes);
+  // Base64 encoding is used to represent binary data in ASCII String format for storage or transfer
   static void saveSignatureAsTextFile(
     String fileName,
     byte[] signatureBytes
   ) throws IOException {
 
-    //ENCODE SIGNATURE
+    //CONVERT BYTES TO STRING
     Base64.Encoder encoder         = Base64.getEncoder();
     String         singatureString = encoder.encodeToString(signatureBytes);
 
     //WRITE SIGNATURE TO TEXT FILE
     UtilFiles.writeStringToFile(fileName, singatureString);
+
+  }
+
+  //====================================================================================
+  // SAVE SIGNATURE AS BINARY FILE
+  //====================================================================================
+  // UtilSignature.saveSignatureAsBinaryFile("Signature.bin", signatureBytes);
+  // Convenient Method that just forwards call to UtilFiles.writeBytesToFile()
+  static void saveSignatureAsBinaryFile(
+    String fileName,
+    byte[] signatureBytes
+  ) throws IOException {
+
+    //WRITE SIGNATURE TO BINARY FILE
+    UtilFiles.writeBytesToFile("Signature.bin", signatureBytes);
 
   }
 

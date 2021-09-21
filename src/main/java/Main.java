@@ -31,9 +31,9 @@ class Main {
     PublicKey  publicKeyFromBinaryFile  = UtilKeys.readPublicKeyFromBinaryFile ("PublicKey.bin" , "RSA");
 
     //CREATE DIGITAL SIGNATURE
-    byte[]     dataBytes     = UtilFiles.readBytesFromFile("Data.txt");
-    byte[]     signaturBytes = UtilSignature.createSignature(dataBytes, "SHA256withRSA", privateKeyFromBinaryFile);
-    UtilFiles.writeBytesToFile("Signature.bin", signaturBytes);
+    byte[]     dataBytes      = UtilFiles.readBytesFromFile("Data.txt");
+    byte[]     signatureBytes = UtilSignature.createSignature(dataBytes, "SHA256withRSA", privateKeyFromBinaryFile);
+    UtilSignature.saveSignatureAsBinaryFile("Signature.bin", signatureBytes);
 
     //VALIDATE DIGITAL SIGNATURE
     byte[]     dataBytesFromFile     = UtilFiles.readBytesFromFile("Data.txt");
