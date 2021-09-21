@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -8,7 +6,6 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 
 public class UtilKeys {
 
@@ -54,24 +51,6 @@ public class UtilKeys {
   }
 
   //====================================================================================
-  // SAVE KEY AS TEXT FILE
-  //====================================================================================
-  // UtilKeys.saveKeyAsText(privateKey, "PrivateKey.txt");
-  static void saveKeyAsText(
-    String fileName,
-    Key    key
-  ) throws IOException {
-
-    //ENCODE KEY
-    Base64.Encoder encoder    = Base64.getEncoder();
-    String         encodedKey = encoder.encodeToString(key.getEncoded());
-
-    //WRITE STRING TO FILE
-    UtilFiles.writeStringToFile(fileName, encodedKey);
-
-  }
-
-  //====================================================================================
   // READ PRIVATE KEY FROM TEXT FILE
   //====================================================================================
   // UtilKeys.readPrivateKeyFromTextFile("PrivateKey.txt", "RSA");
@@ -80,12 +59,8 @@ public class UtilKeys {
     String format
   ) throws Exception {
 
-    //READ PRIVATE KEY FROM FILE
-    String              encodedKey          = UtilFiles.readStringFromFile(fileName);
-
-    //CONVERT TEXT TO BINARY
-    Base64.Decoder      decoder             = Base64.getDecoder();
-    byte[]              privateKeyBytes     = decoder.decode(encodedKey);
+    //READ PRIVATE KEY FROM TEXT FILE
+    byte[]              privateKeyBytes     = UtilFiles.decodeTextFileIntoBytes(fileName);
 
     //GENERATE PRIVATE KEY
     PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
@@ -109,12 +84,8 @@ public class UtilKeys {
     String format
   ) throws Exception {
 
-    //READ PRIVATE KEY FROM FILE
-    String              encodedKey         = UtilFiles.readStringFromFile(fileName);
-
-    //CONVERT TEXT TO BINARY
-    Base64.Decoder      decoder            = Base64.getDecoder();
-    byte[]              publicKeyBytes     = decoder.decode(encodedKey);
+    //READ PUBLIC KEY FROM TEXT FILE
+    byte[]              publicKeyBytes     = UtilFiles.decodeTextFileIntoBytes(fileName);
 
     //GENERATE PRIVATE KEY
     X509EncodedKeySpec  x509EncodedKeySpec = new X509EncodedKeySpec(publicKeyBytes);
@@ -138,8 +109,10 @@ public class UtilKeys {
     String format       //"RSA", "DSA"
   ) throws Exception {
 
-    //GENERATE PRIVATE KEY
+    //READ PRIVATE KEY FROM BINARY FILE
     byte[]              privateKeyBytes     = UtilFiles.readBytesFromFile(fileName);
+
+    //GENERATE PRIVATE KEY
     PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
     KeyFactory          keyFactory          = KeyFactory.getInstance(format);
     PrivateKey          privateKey          = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
@@ -163,6 +136,8 @@ public class UtilKeys {
 
     //GENERATE PUBLIC KEY
     byte[]              publicKeyBytes      = UtilFiles.readBytesFromFile(fileName);
+
+    //GENERATE PUBLIC KEY
     X509EncodedKeySpec  x509EncodedKeySpec  = new X509EncodedKeySpec(publicKeyBytes);
     KeyFactory          keyFactory          = KeyFactory.getInstance(format);
     PublicKey           publicKey           = keyFactory.generatePublic(x509EncodedKeySpec);

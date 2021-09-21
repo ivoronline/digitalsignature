@@ -55,8 +55,8 @@ class Main {
     PublicKey  publicKey  = keyPair.getPublic();
 
     //SAVE KEYS TO TEXT FILES
-    UtilKeys.saveKeyAsText("PrivateKey.txt", privateKey);
-    UtilKeys.saveKeyAsText("PublicKey.txt" , publicKey );
+    UtilFiles.encodeBytesIntoTextFile("PrivateKey.txt", privateKey.getEncoded());
+    UtilFiles.encodeBytesIntoTextFile("PublicKey.txt" , publicKey .getEncoded());
 
     //READ KEYS FROM TEXT FILES
     PrivateKey privateKeyFromTextFile = UtilKeys.readPrivateKeyFromTextFile("PrivateKey.txt", "RSA");

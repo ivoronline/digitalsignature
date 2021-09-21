@@ -46,7 +46,8 @@ public class UtilFiles {
   //====================================================================================
   // ENCODE BYTES INTO TEXT FILE
   //====================================================================================
-  // UtilFiles.encodeBytesIntoTextFile("Signature.txt", byte[] content);
+  // UtilFiles.encodeBytesIntoTextFile("Signature.txt" , signatureBytes);
+  // UtilFiles.encodeBytesIntoTextFile("PrivateKey.txt", privateKey.getEncoded());
   static void encodeBytesIntoTextFile(String fileName, byte[] content) throws IOException {
 
     //CONVERT BYTES TO STRING
@@ -64,7 +65,7 @@ public class UtilFiles {
   // UtilFiles.decodeTextFileIntoBytes("Signature.txt");
   static byte[] decodeTextFileIntoBytes(String fileName) throws IOException {
 
-    //READ SIGNATURE KEY FROM FILE
+    //READ TEXT FROM FILE
     String         string  = UtilFiles.readStringFromFile(fileName);
 
     //CONVERT TEXT TO BINARY
