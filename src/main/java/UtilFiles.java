@@ -44,9 +44,24 @@ public class UtilFiles {
   }
 
   //====================================================================================
+  // ENCODE BYTES INTO TEXT FILE
+  //====================================================================================
+  // UtilFiles.encodeBytesIntoTextFile("Signature.txt", byte[] content);
+  static void encodeBytesIntoTextFile(String fileName, byte[] content) throws IOException {
+
+    //CONVERT BYTES TO STRING
+    Base64.Encoder encoder       = Base64.getEncoder();
+    String         contentString = encoder.encodeToString(content);
+
+    //WRITE STRING TO TEXT FILE
+    UtilFiles.writeStringToFile(fileName, contentString);
+
+  }
+
+  //====================================================================================
   // DECODE TEXT FILE INTO BYTES
   //====================================================================================
-  // UtilKeys.saveKeyAsText(privateKey, "PrivateKey.txt");
+  // UtilFiles.decodeTextFileIntoBytes("Signature.txt");
   static byte[] decodeTextFileIntoBytes(String fileName) throws IOException {
 
     //READ SIGNATURE KEY FROM FILE
@@ -60,4 +75,5 @@ public class UtilFiles {
     return bytes;
 
   }
+
 }

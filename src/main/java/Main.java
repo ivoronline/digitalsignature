@@ -33,7 +33,7 @@ class Main {
     //CREATE DIGITAL SIGNATURE
     byte[]     dataBytes      = UtilFiles.readBytesFromFile("Data.txt");
     byte[]     signatureBytes = UtilSignature.createSignature(dataBytes, "SHA256withRSA", privateKeyFromBinaryFile);
-    UtilSignature.saveSignatureAsBinaryFile("Signature.bin", signatureBytes);
+    UtilFiles.writeBytesToFile("Signature.bin", signatureBytes);
 
     //VALIDATE DIGITAL SIGNATURE
     byte[]     dataBytesFromFile     = UtilFiles.readBytesFromFile("Data.txt");
@@ -65,7 +65,7 @@ class Main {
     //CREATE DIGITAL SIGNATURE
     byte[]     dataBytes     = UtilFiles.readBytesFromFile("Data.txt");
     byte[]     signaturBytes = UtilSignature.createSignature(dataBytes, "SHA256withRSA", privateKeyFromTextFile);
-    UtilSignature.saveSignatureAsTextFile("Signature.txt", signaturBytes);
+    UtilFiles.encodeBytesIntoTextFile("Signature.txt", signaturBytes);
 
     //VALIDATE DIGITAL SIGNATURE
     byte[]     dataBytesFromFile     = UtilFiles.readBytesFromFile("Data.txt");
